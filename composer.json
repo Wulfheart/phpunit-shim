@@ -2,5 +2,14 @@
     "name": "wulfheart/phpunit-shim",
     "require": {},
     "bin": ["bin/phpunit.phar"],
-    "description": "A shim for phpunit to allow for easy installation via composer"
+    "description": "A shim for phpunit to allow for easy installation via composer",
+    "homepage": "https://phpunit.de/",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Sebastian Bergmann",
+            "email": "sebastian@phpunit.de",
+            "role": "lead"
+        }
+    ],
 }
