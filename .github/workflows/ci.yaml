@@ -33,7 +33,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: versions
     strategy:
-      matrix: "${{ steps.versions.outputs.VERSIONS }}"
+      matrix: 
+        version: "${{ steps.versions.outputs.VERSIONS }}"
     steps:
       - name: Do something
+        run: echo ${{ matrix.version }}
       
