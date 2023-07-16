@@ -45,15 +45,15 @@ jobs:
         with:
           branch: v${{ matrix.version }}
       - name: download phar.asc
-        run: wget https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar.asc -o bin/phpunit.phar.asc
+        run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar.asc -o bin/phpunit.phar.asc
       - name: download phar
-        run: wget https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar -o bin/phpunit.phar
+        run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar -o bin/phpunit.phar
           
-      - uses: stefanzweifel/git-auto-commit-action@v4   
-      - uses: rickstaa/action-create-tag@v1
-        id: "tag_create"
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          tag: ${{ matrix.version }}
-          message: "Latest release"
+          branch: v${{ matrix.version }}
+          tagging_message: ${{ matrix.version }}
+          create_branch: true
+    
 
       
