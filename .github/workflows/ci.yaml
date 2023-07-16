@@ -22,6 +22,7 @@ jobs:
     - id: set-matrix
       run: |
         data=$(bash fetch.sh)
+        echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
   act:
     runs-on: ubuntu-latest
