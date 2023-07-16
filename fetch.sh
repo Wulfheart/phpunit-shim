@@ -2,7 +2,7 @@
 response=$(curl -s "https://packagist.org/packages/phpunit/phpunit.json")
 
 # Extract the versions from the JSON data
-versions=$(echo "$response" | jq -r '.package.versions | keys[] | select(test("^((?!dev).)*$"))' | sort -V -r | head -n 1)
+versions=$(echo "$response" | jq -r '.package.versions | keys[] | select(test("^((?!dev).)*$"))' | sort -V -r)
 
 # Output the versions
 
