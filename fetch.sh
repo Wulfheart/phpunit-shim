@@ -2,7 +2,7 @@
 response=$(curl -s "https://packagist.org/packages/phpunit/phpunit.json")
 
 # Extract the versions from the JSON data
-versions=$(echo "$response" | jq -r '.package.versions | keys[] | select(test("^((?!dev).)*$"))' | sort -V | tail -n 1)
+versions=$(echo "$response" | jq -r '.package.versions | keys[] | select(test("^((?!dev).)*$"))' | sort -V -r)
 
 # Output the versions
 
@@ -18,4 +18,4 @@ for version in $versions; do
 done
 
 
-echo $(jq -c -n '$ARGS.positional' --args "${not_in_tags[@]}")
+echo $(jq -c -n '$ARGS.positional' --args "${not_in_tags[@]:0:1}")
