@@ -35,6 +35,7 @@ jobs:
       matrix: 
         version: "${{ fromJson(needs.job1.outputs.matrix) }}"
     steps:
+      - uses: actions/checkout@v3
       - name: Do something
         run: echo ${{ matrix.version }}
       - name: Create new branch
