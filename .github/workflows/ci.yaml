@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      count: ${{ steps.set-matrix.outputs.count }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -26,8 +27,10 @@ jobs:
         data=$(bash fetch.sh)
         echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
-        bash fetch.sh | jq length | grep -q '^0$' && exit 0
+        $count=$data|jq length
+        echo "count=$count" >> $GITHUB_OUTPUT
   act:
+    if: ${{ needs.job1.outputs.count > 0 }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
