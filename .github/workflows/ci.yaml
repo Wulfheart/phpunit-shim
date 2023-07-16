@@ -27,7 +27,7 @@ jobs:
         data=$(bash fetch.sh)
         echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
-        $count=$data|jq length
+        $count= echo $data|jq length
         echo $count
         echo "count=$count" >> $GITHUB_OUTPUT
   act:
