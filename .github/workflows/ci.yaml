@@ -26,6 +26,7 @@ jobs:
         data=$(bash fetch.sh)
         echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
+        bash fetch.sh | jq length | grep -q '^0$' && exit
   act:
     runs-on: ubuntu-latest
     permissions:
