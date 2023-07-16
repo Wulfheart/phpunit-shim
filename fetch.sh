@@ -18,4 +18,5 @@ for version in $versions; do
 done
 
 
-printf '%s\n' "${not_in_tags[@]}" | jq -R . | jq -s .
+echo $(jq -c -n '$ARGS.positional' --args "${not_in_tags[@]}"
+)
