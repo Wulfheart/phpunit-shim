@@ -19,6 +19,8 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  
     - id: set-matrix
       run: |
         data=$(bash fetch.sh)
@@ -26,6 +28,8 @@ jobs:
         echo "matrix=$data" >> $GITHUB_OUTPUT 
   act:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     needs: job1
     strategy:
       matrix: 
@@ -33,4 +37,22 @@ jobs:
     steps:
       - name: Do something
         run: echo ${{ matrix.version }}
+      - name: Create new branch
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          branch: v${{ matrix.version }}
+      - name: curl phar.asc
+        run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar.asc -o bin/phpunit.phar.asc
+      - name: curl phar
+        run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar -o bin/phpunit.phar
+          
+      - uses: stefanzweifel/git-auto-commit-action@v4   
+      - uses: rickstaa/action-create-tag@v1
+        id: "tag_create"
+        with:
+          tag: ${{ matrix.version }}
+          message: "Latest release"
+
       
