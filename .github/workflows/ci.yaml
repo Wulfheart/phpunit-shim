@@ -18,6 +18,8 @@ jobs:
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
+    - run: pwd
+    - run: ls
     - id: set-matrix
       run: bash fetch.sh >> $GITHUB_OUTPUT 
   act:
