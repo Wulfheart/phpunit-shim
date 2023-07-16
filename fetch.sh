@@ -17,7 +17,5 @@ for version in $versions; do
     fi
 done
 
-# Output the versions not included in tags
-for version in "${not_in_tags[@]}"; do
-    echo "$version"
-done
+
+printf '%s\n' "${not_in_tags[@]}" | jq -R . | jq -s .
