@@ -34,7 +34,7 @@ jobs:
     needs: versions
     strategy:
       matrix: 
-        version: "${{ steps.versions.outputs.VERSIONS }}"
+        version: "${{ jobs.versions.outputs.VERSIONS }}"
     steps:
       - name: Do something
         run: echo ${{ matrix.version }}
