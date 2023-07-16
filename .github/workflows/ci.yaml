@@ -17,6 +17,8 @@ jobs:
   versions:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    outputs:
+      first: ${{ steps.calc.outputs.VERSIONS }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -24,17 +26,15 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Get all versions
-        id: versions
-        run: >-
-          echo "::set-output name=VERSIONS::$(
-            bash fetch.sh
-          )"
+        id: calc
+        run: bash fetch.sh >> "$GITHUB_OUTPUT"
+          
   act:
     runs-on: ubuntu-latest
     needs: versions
     strategy:
       matrix: 
-        version: "${{ jobs.versions.outputs.VERSIONS }}"
+        version: "${{ jobs.versions.outputs.first }}"
     steps:
       - name: Do something
         run: echo ${{ matrix.version }}
