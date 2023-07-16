@@ -17,6 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
+      count: ${{ steps.set-matrix.outputs.count }}
     steps:
     - uses: actions/checkout@v3
       with:
@@ -26,7 +27,10 @@ jobs:
         data=$(bash fetch.sh)
         echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
+        $count=$data|jq length
+        echo "count=$count" >> $GITHUB_OUTPUT
   act:
+    if: ${{ needs.job1.outputs.count > 0 }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -38,12 +42,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Do something
         run: echo ${{ matrix.version }}
-      - name: Create new branch
-        uses: peterjgrainger/action-create-branch@v2.2.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          branch: v${{ matrix.version }}
       - name: download phar.asc
         run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar.asc -o bin/phpunit.phar.asc
       - name: download phar
