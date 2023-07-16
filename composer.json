@@ -1,4 +1,6 @@
 {
     "name": "wulfheart/phpunit-shim",
-    "require": {}
+    "require": {},
+    "bin": ["bin/phpunit.phar"],
+    "description": "A shim for phpunit to allow for easy installation via composer"
 }
