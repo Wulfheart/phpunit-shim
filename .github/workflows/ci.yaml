@@ -28,6 +28,7 @@ jobs:
         echo $data
         echo "matrix=$data" >> $GITHUB_OUTPUT 
         $count=$data|jq length
+        echo $count
         echo "count=$count" >> $GITHUB_OUTPUT
   act:
     if: ${{ needs.job1.outputs.count > 0 }}
