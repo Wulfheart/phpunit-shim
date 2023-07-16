@@ -19,10 +19,10 @@ jobs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
     - uses: actions/checkout@v3
-    - run: pwd
-    - run: ls
     - id: set-matrix
-      run: bash fetch.sh >> $GITHUB_OUTPUT 
+      run: |
+        data=$(bash fetch.sh)
+        $data >> $GITHUB_OUTPUT 
   act:
     runs-on: ubuntu-latest
     needs: job1
