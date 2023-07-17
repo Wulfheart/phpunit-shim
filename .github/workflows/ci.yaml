@@ -47,6 +47,8 @@ jobs:
         run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar.asc -o bin/phpunit.phar.asc
       - name: download phar
         run: curl https://phar.phpunit.de/phpunit-${{ matrix.version }}.phar -o bin/phpunit.phar
+      - name: make executable
+        run: chmod a+x bin/phpunit.phar
           
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
